@@ -1,0 +1,75 @@
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.conf.Configured;
+import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.map.TokenCounterMapper;
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+import org.apache.hadoop.mapreduce.lib.reduce.IntSumReducer;
+import org.apache.hadoop.util.Tool;
+import org.apache.hadoop.util.ToolRunner;
+
+/**
+ * Example MapReduce job accessing the BD4 cluster remotely.
+ * You all have your own directory under /user, named after
+ * the first part of your email; e.g., /user/1234567A for
+ * 1234567A@student.gla.ac.uk. Use that directory to store
+ * output and/or intermediate files.
+ *
+ * Note: this username should match whatever username you are
+ * using at the machine you are executing your code on. If this
+ * is not the case, please let us know via email. Please also
+ * note that, due to security policy constraints, the BD4 cluster
+ * is accessible only from school IP addresses.
+ *
+ * You can find a copy of the toy data at:
+ *    /user/bd4-project1/enwiki-20080103-sample.txt
+ * while the complete input file is located at:
+ *    /user/bd4-project1/enwiki-20080103.txt
+ */
+public class MyWordCount extends Configured implements Tool {
+	@Override
+	public int run(String[] args) throws Exception {
+		Configuration conf = new Configuration();
+
+		// Set conf variables pointing to the BD4 cluster 
+		conf.set("fs.defaultFS", "hdfs://bigdata-06.dcs.gla.ac.uk:8020");
+		conf.set("mapred.job.tracker", "bigdata-06.dcs.gla.ac.uk:8021");
+
+		// Hadoop needs to upload the jar with your code to HDFS, so instruct it where to find it
+		// Supply a full URI as the second argument; e.g., "file:///C:/Users/foo/some/dir/myjar.jar"
+		// if you are on Windows, "file:///home/foo/some/dir/myjar.jar" if you are on *nix, etc.
+		conf.set("mapred.jar", "file:///<insert path to your jar file here>");
+
+		// Delete the output directory to allow the job to run
+		// !!! CAUTION !!! Make sure you are not deleting something you need !!! CAUTION !!!
+		FileSystem fs = FileSystem.get(conf);
+		fs.delete(new Path(args[1]), true);
+
+		// Now do the standard boilerplate stuff, only using the above
+		// prepopulated configuration object...
+		Job job = new Job(conf);
+		job.setJobName("MyWordCount-v0");
+		job.setJarByClass(MyWordCount.class);
+		job.setMapperClass(TokenCounterMapper.class);
+		job.setReducerClass(IntSumReducer.class);
+		job.setOutputKeyClass(Text.class);
+		job.setOutputValueClass(IntWritable.class);
+		FileInputFormat.addInputPath(job, new Path(args[0]));
+		FileOutputFormat.setOutputPath(job, new Path(args[1]));
+
+		// ... and you're done! If you now execute this, with the Hadoop
+		// libraries in your classpath, it will spawn a new job on the BD4
+		// cluster. You can monitor its progress and errors by browsing to:
+		// http://bigdata-06.dcs.gla.ac.uk:50030
+		job.submit();
+		return job.waitForCompletion(true) ? 0 : 1;
+	}
+
+	public static void main(String[] args) throws Exception {
+		System.exit(ToolRunner.run(new MyWordCount(), args));
+	}
+}
