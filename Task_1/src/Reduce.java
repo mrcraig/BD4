@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
@@ -8,19 +9,21 @@ import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.Reducer.Context;
 
 public class Reduce extends Reducer<LongWritable, LongWritable, LongWritable, LongWritable> {
-		public void run(Context context) throws IOException, InterruptedException{
+	
+	public void reduce(LongWritable key, Iterable<LongWritable> values, Context context) throws IOException, InterruptedException {
 			
-			//Declare storage for intermediate sorting step
-			ArrayList<KeyValue> store = new ArrayList<KeyValue>(500);
+			//Storage
+			ArrayList<Long> sortArray = new ArrayList<Long>();
 			
-			while(context.nextKey()){
-				
-				addSortByKey(context.getCurrentKey(),context.getValues());
-				reduce(context.getCurrentKey(), context.getValues(), context);
+			while(values.iterator().hasNext()){
+				sortArray.add(values.iterator().next().get());
 			}
-		}
-		
-		public void addSortByKey(LongWritable artid, Iterable<LongWritable> revid){
-		//	KV = new KeyValue(Long.parseLong(artid.toString()),revid.)
-		}
+			
+			Collections.sort(sortArray);
+				
+			for(long val:sortArray)
+				context.write(key, new LongWritable(val));
+			
+			sortArray.clear();
 	}
+}
