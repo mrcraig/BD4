@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Cloudera VM - Hadoop, made easy.</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+  <link href="css/quick-hadoop.css" rel="stylesheet">
+  <link href="css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+<header id="header" class="site-header">
+  <div class="container">
+    <div class="row-fluid">
+      <div class="span12">
+        <h1><a class="site-title" href="http://www.cloudera.com" target="_blank"><img src="img/cloudera.png"/></a></h1>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row-fluid">
+      <div class="span12">
+
+        <div class="header-description">
+          <h2>Hadoop, made easy.</h2>
+        </div>
+
+        <div class="header-features">
+          <div class="row-fluid">
+            <div class="span8 header-feature">
+              <div class="row-fluid">
+                <div class="span6 dark-block">
+                  <h3>Use Hadoop</h3>
+
+                  <p>Query Apache Hive and Cloudera Impala, search and customize Apache Solr, browse and manipulate files and directories in the Hadoop Distributed File System (HDFS), create and run Apache Pig scripts, visually manage Apache Oozie workflow/coordinator/bundle applications, create, submit and browse MapReduce jobs...</p>
+
+                  <div class="showHue">
+                  <div class="big-button hue-button">
+                    <a href="cloudera-hue.html" class="span12"><i class="icon-external-link"></i> Hue</a>
+                  </div>
+                </div>
+                </div>
+                <div class="span6 dark-block">
+                  <h3>Administer Hadoop</h3>
+
+                  <p>Setup and monitor the health of the cluster, start and stop services like HDFS, Job Tracker, update and deploy configurations, search logs, perform audits, analyse performance graphs and metrics...</p>
+
+                  <div class="showCm">
+                  <div class="big-button cm-button">
+                    <a href="cloudera-manager.html" class="span12"><i class="icon-external-link"></i> Cloudera Manager</a>
+                  </div>
+                </div>
+                </div>
+              </div>
+            </div>
+            <div class="span4">
+
+              <div class="screens">
+                <a href="http://gethue.com" target="_blank" title="Visit gethue.com !">
+                  <img id="hueScreens" class="screen-img" src="img/hue_screens.png"/>
+                </a>
+                <a href="http://www.cloudera.com/content/cloudera/en/products/cloudera-manager.html" target="_blank" title="Visit Cloudera Manager website !"> 
+                  <img id="cmScreens" class="screen-img" src="img/cm_screens.png"/>
+                </a>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</header>
+
+<footer id="footer" class="footer">
+  <div class="container">
+    <div class="row-fluid">
+      <div class="span12">
+        <div class="footer-notes">
+          <p>&copy;2013 <a href="http://www.cloudera.com" target="_blank">Cloudera, Inc.</a> All rights reserved. Hadoop
+            and the Hadoop elephant logo are trademarks of the <a href="http://www.apache.org/" target="_blank">Apache
+              Software Foundation</a>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+<script type="text/javascript" charset="utf-8">
+  $(document).ready(function () {
+    $(".showHue").hover(function () {
+      $("#hueScreens").css("opacity", "1");
+    }, function () {
+      $("#hueScreens").css("opacity", ".7");
+    });
+    $(".showCm").hover(function () {
+      $("#cmScreens").css("opacity", "1");
+    }, function () {
+      $("#cmScreens").css("opacity", "0.7");
+    });
+  });
+</script>
+
+<script>
+  $(document).ready(function () {
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-41000633-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();  
+ });
+</script>
+
+</body>
+</html>

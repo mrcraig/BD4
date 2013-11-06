@@ -6,7 +6,7 @@ import java.util.Comparator;
 import org.apache.hadoop.io.Writable;
 
 
-public class KeyValue implements Writable {
+public class KeyValue implements Writable{
 	private long key;
 	private int value;
 	
@@ -28,14 +28,6 @@ public class KeyValue implements Writable {
 		return this.value;
 	}
 	
-	public int compare(KeyValue first, KeyValue second) {
-		if(first.getValue()<second.getValue())
-			return -1;
-		else if(first.getValue()>second.getValue())
-			return 1;
-		else 
-			return 0;
-	}
 
 	@Override
 	public void readFields(DataInput in) throws IOException {

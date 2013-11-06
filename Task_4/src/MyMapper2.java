@@ -18,9 +18,7 @@ public class MyMapper2 extends Mapper<LongWritable, Text, IntWritable, KeyValue>
 		Scanner recordScan = new Scanner(value.toString());
 		long keyV = recordScan.nextLong();
 		int valV = recordScan.nextInt();
-		recordScan.close();
-		KeyValue newKV = new KeyValue(keyV,valV);
 		
-		context.write(new IntWritable(1), newKV);
+		context.write(new IntWritable(1), new KeyValue(keyV,valV));
 	}
 }

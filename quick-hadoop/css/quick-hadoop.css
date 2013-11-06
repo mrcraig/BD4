@@ -1,0 +1,243 @@
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 100;
+  src: local('Lato Hairline'), local('Lato-Hairline'), url('../font/lato-100.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Lato Light'), local('Lato-Light'), url('../font/lato-300.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Lato Regular'), local('Lato-Regular'), url('../font/lato-400.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Lato Bold'), local('Lato-Bold'), url('../font/lato-700.woff') format('woff');
+}
+
+body {
+  font-family: lato;
+  font-size: 15px;
+  font-weight: 300;
+  color: rgb(124, 124, 124);
+}
+
+a {
+  color: rgb(50, 50, 50);
+  -webkit-transition: all 300ms ease;
+  -moz-transition: all 300ms ease;
+  -ms-transition: all 300ms ease;
+  -o-transition: all 300ms ease;
+  transition: all 300ms ease;
+}
+
+a:hover, a:focus {
+  color: rgb(219, 82, 47);
+  text-decoration: none;
+}
+
+.site-header {
+  background-image: url(../img/bg.jpg);
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+}
+
+.site-title {
+  color: #fff;
+  font-weight: 300;
+  font-size: 30px;
+  display: inline-block;
+  margin-top: 29px;
+}
+
+.header-description {
+  margin: 20px 0 0;
+}
+
+.header-description h2 {
+  font-weight: 400;
+  font-size: 70px;
+  color: rgb(255, 255, 255);
+  text-shadow: 0 0px 12px rgba(36, 36, 36, 0.55);
+  padding: 0px 0 40px 0;
+}
+
+.header-features {
+  color: #fff;
+  display: block;
+}
+
+.header-feature {
+  padding-bottom: 20px;
+  text-shadow: 0 0px 4px rgba(36, 36, 36, 0.55);
+}
+
+.screens {
+  width: 254px;
+  height: 508px;
+  margin: -90px 91px 0;
+  position: relative;
+}
+
+.big-button {
+  margin: 50px 0;
+  text-align: center;
+}
+
+.big-button a {
+  color: #FFF;
+  display: inline-block;
+  font-size: 20px;
+  padding: 10px;
+  line-height: 30px;
+  font-weight: 500;
+
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.19);
+  -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.19);
+  -ms-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.19);
+  -o-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.19);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.19);
+}
+
+.hue-button a {
+  background: #f29233;
+  border: 1px solid #f29233;
+}
+
+.cm-button a {
+  background: #9d559b;
+  border: 1px solid #9d559b;
+}
+
+.big-button a i {
+  margin-right: 10px;
+}
+
+.big-button a:hover {
+  text-decoration: none;
+}
+
+.screen-img {
+  opacity: 0.7;
+}
+
+.screen-img:hover {
+  opacity: 1;
+}
+
+.footer {
+  position: relative;
+}
+
+.footer-notes {
+  padding: 50px;
+  position: inline-block;
+  text-align: center;
+}
+
+.footer-notes p {
+  padding-bottom: 20px;
+}
+
+.footer-notes p + p {
+  border-top: 1px dashed rgb(220, 220, 220);
+  padding: 25px;
+}
+
+@media (min-width: 1100px) {
+
+}
+
+@media (min-width:768px) and (max-width:1024px) {
+  .screens {
+    margin: -90px 34px 0;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 979px) {
+  .screens {
+    margin: 0px 92px 0;
+  }
+}
+
+@media (max-width: 767px) {
+  body {
+    padding-right: 0px;
+    padding-left: 0px;
+  }
+
+  .container {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+
+  .header-description {
+    margin: 66px 0 0;
+  }
+
+  .header-description h2 {
+    font-size: 59px;
+    line-height: 62px;
+  }
+
+  .purchase-button a {
+    font-size: 16px;
+    padding: 16px 24px;
+  }
+
+  .screens {
+    margin: -64px auto 117px;
+  }
+
+  .notify {
+    font-size: 16px;
+    display: inline-block;
+    padding: 17px 25px;
+  }
+
+  .notify-inner {
+    padding: 7px 8px 8px;
+  }
+
+  .footer-notes {
+    padding: 150px 0 100px;
+  }
+
+}
+
+@media (max-width: 480px) {
+
+}
+
+.dark-block {
+  margin: 0px;
+  display: block;
+  background-color: rgba(4, 115, 143, 0.75);
+  padding: 14px;
+  padding-top: 0;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+
+.dark-block p {
+  font-weight: 400;
+  min-height: 180px!important;
+}

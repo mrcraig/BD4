@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+    <title>Loading - Hue</title>
+
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <link href="css/hue2.css" rel="stylesheet">
+
+  <style type="text/css">
+    body {
+      padding-top: 80px;
+    }
+
+    #logo {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 40px
+    }
+
+    .login-content {
+      width: 400px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .login-content label {
+      margin-bottom: 20px;
+      font-size: 16px;
+    }
+
+    .login-content input[type='text'], .login-content input[type='password'] {
+      width: 90%;
+      margin-top: 10px;
+    }
+
+    .login-content input {
+      width: 100%;
+      padding: 10px 16px;
+    }
+  </style>
+
+  <script>
+    var scriptElement = document.createElement('script');
+    scriptElement.type = 'text/javascript';
+    scriptElement.src = 'http://localhost.localdomain:8888/static/ext/js/jquery/jquery-2.0.2.min.js?t=' + new Date().getTime();
+    document.getElementsByTagName('head')[0].appendChild(scriptElement);
+
+    function reload() {
+        window.location.href = window.location.href;
+    }
+
+    function check() {
+        cloudera_hue_url = 'http://localhost.localdomain:8888/home';
+        if (typeof $ === 'function') {
+            window.location = cloudera_hue_url;
+        }
+        else {
+            window.setTimeout(reload, 5000);
+        }
+    }
+  </script>
+</head>
+
+<body onLoad="check()">
+  <div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container-fluid"></div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <a href="http://gethue.com" target="_blank" title="Visit gethue.com !"> 
+        <img id="logo" src="img/hue-login-logo.png">
+      </a>
+    </div>
+    <div class="row">
+      <div class="login-content">
+        <form method="POST" action="/accounts/login/" class="well">
+
+              <h4>Loading... <img src="img/spinner.gif" style="vertical-align:top; margin-top:2px;" /></h4>
+              Please wait while Hue starts. You will be forwarded to the login page when the service is ready.
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+</body></html>
