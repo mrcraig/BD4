@@ -12,7 +12,7 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
 
-public class MyMapper extends Mapper<LongWritable, Text, LongWritable, LongWritable>{
+public class MyMapper extends Mapper<LongWritable, Text, LongWritable, IntWritable>{
 	
 		public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException{
 		
@@ -23,7 +23,6 @@ public class MyMapper extends Mapper<LongWritable, Text, LongWritable, LongWrita
 		Date ts = null;
 		String time = "";
 		String record = value.toString();
-		//String[] lines = record.split("\n");
 		
 		Date startDate = null;
 		Date endDate = null;
@@ -61,7 +60,7 @@ public class MyMapper extends Mapper<LongWritable, Text, LongWritable, LongWrita
 			//Emit if in range
 			//TODO sort
 			if(ts.after(startDate) && ts.before(endDate))
-				context.write(artID,revID);
+				context.write(artID,new IntWritable(1));
 		}
 		
 		

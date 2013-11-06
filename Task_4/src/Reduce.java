@@ -8,22 +8,16 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.Reducer.Context;
 
-public class Reduce extends Reducer<LongWritable, LongWritable, LongWritable, LongWritable> {
+public class Reduce extends Reducer<LongWritable, IntWritable, LongWritable, IntWritable> {
 	
-	public void reduce(LongWritable key, Iterable<LongWritable> values, Context context) throws IOException, InterruptedException {
+	public void reduce(LongWritable key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
 			
-			//Storage
-			ArrayList<Long> sortArray = new ArrayList<Long>();
 			
+			int numRecs = 0;
 			while(values.iterator().hasNext()){
-				sortArray.add(values.iterator().next().get());
+				numRecs++;
 			}
 			
-			Collections.sort(sortArray);
-				
-			for(long val:sortArray)
-				context.write(key, new LongWritable(val));
-			
-			sortArray.clear();
+			context.write(key,new IntWritable(numRecs));
 	}
 }
