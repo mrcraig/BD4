@@ -8,8 +8,14 @@ public class KVCompare implements Comparator<KeyValue>{
 			return 1;
 		else if(first.getValue()>second.getValue())
 			return -1;
-		else 
-			return 0;
+		else {
+			if(first.getKey()<second.getKey())
+				return -1;
+			else if(first.getKey()>second.getKey())
+				return 1;
+			else
+				return 0;
+		}
 	}
 
 }
