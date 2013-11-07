@@ -22,18 +22,18 @@ public class Reduce extends Reducer<LongWritable, Text, LongWritable, Text> {
              endDate = conf.get("endDate");
      }
 	 
-        public void reduce(LongWritable key, Iterable<LongWritable> values, Context context) throws IOException, InterruptedException {
+        public void reduce(LongWritable key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
                  
         	String[] v;
-			v = values.toString().split(";");
+			
 			LongWritable artID = key;
 			String ts;
 
 			ArrayList<Long> revs = new ArrayList<Long>();
 
-			for (String val:v){
-				Long revID = Long.parseLong(v[0]);
-				ts = v[1];
+			for (Text val:values){
+				v = val.toString().split(";");
+				ts = v[0];
 				if (ts.compareTo(startDate)<=0 && ts.compareTo(endDate)>=0){
 				revs.add(Long.parseLong(ts));;
 				}
