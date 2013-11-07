@@ -42,29 +42,29 @@ public class MyMapper extends Mapper<LongWritable, Text, LongWritable, LongWrita
 		
 		
 		//Output articleId and revid
-		if(record.contains("REVISION")){
-			Scanner lineScan = new Scanner(record);
-			lineScan.next();				//REVISION TITLE
-			artID.set(lineScan.nextLong());	//article ID
-			revID.set(lineScan.nextLong());	//revision ID
-			lineScan.next();				//article title
-			time = lineScan.next();		//Timestamp
-		
-			//Parse timestamp from data
-			try {
-				ts = dateFormat.parse(time);
-			} catch (ParseException e) {
-				System.out.println("Error - Date formatted incorrectly (" + time + ")");
-				e.printStackTrace();
-			}
+		Scanner lineScan = new Scanner(record);
+		if(lineScan.hasNext()){
 			
-			//Emit if in range
-			//TODO sort
-			if(ts.after(startDate) && ts.before(endDate))
-				context.write(artID,revID);
+			String linetitle = lineScan.next();	//REVISION TITLE
+			if(linetitle.equals("REVISION")){
+				artID.set(lineScan.nextLong());	//article ID
+				revID.set(lineScan.nextLong());	//revision ID
+				lineScan.next();				//article title
+				time = lineScan.next();		//Timestamp
+			
+				//Parse timestamp from data
+				try {
+					ts = dateFormat.parse(time);
+				} catch (ParseException e) {
+					System.out.println("Error - Date formatted incorrectly (" + time + ")");
+					e.printStackTrace();
+				}
+				
+				//Emit if in range
+				//TODO sort
+				if(ts.after(startDate) && ts.before(endDate))
+					context.write(artID,revID);
+			}
 		}
-		
-		
 	}
-		
 }
