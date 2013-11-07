@@ -17,9 +17,8 @@ public class Reduce extends Reducer<LongWritable, Text, LongWritable, Text> {
 	
 	 @Override
      public void setup (Context context){
-             Configuration conf = context.getConfiguration();
-             startDate = conf.get("startDate");
-             endDate = conf.get("endDate");
+             startDate = (context.getConfiguration().getStrings("Dates")[0]);
+             endDate = (context.getConfiguration().getStrings("Dates")[1]);
      }
 	 
         public void reduce(LongWritable key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
@@ -30,12 +29,13 @@ public class Reduce extends Reducer<LongWritable, Text, LongWritable, Text> {
 			String ts;
 
 			ArrayList<Long> revs = new ArrayList<Long>();
-
+			int revno = 0;
 			for (Text val:values){
 				v = val.toString().split(";");
 				ts = v[0];
-				if (ts.compareTo(startDate)<=0 && ts.compareTo(endDate)>=0){
-				revs.add(Long.parseLong(ts));;
+				if (ts.compareTo(startDate)>=0 && ts.compareTo(endDate)<=0){
+					revs.add(Long.parseLong(v[1]));;
+					revno++;
 				}
 			}
 			
@@ -50,9 +50,10 @@ public class Reduce extends Reducer<LongWritable, Text, LongWritable, Text> {
 				for(Long rev : revs){
 						results += String.valueOf(rev)+" ";
 				}
+				context.write(artID, new Text( revno + " " + results + " "));
 			}
             
-            context.write(artID, new Text(results + " " + revs));
+            //context.write(artID, new Text( revno + " " + results + " "));
             
 			//stuff craig did
                         //Storage

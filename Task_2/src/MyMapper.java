@@ -58,7 +58,7 @@ public class MyMapper extends Mapper<LongWritable, Text, LongWritable, Text>{
                                 e.printStackTrace();
                         }
                         
-                        Text val = new Text(time + ";" + artID.toString());
+                        Text val = new Text(time + ";" + revID.toString());
 
                         context.write(artID,val);
                 }
