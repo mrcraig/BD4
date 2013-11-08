@@ -20,10 +20,10 @@ public class IndexMapper extends Mapper<LongWritable, Text, LongWritable, LongWr
 
 		
 		BufferedReader f = null;
-		f = new BufferedReader(new FileReader("whatever craig called the file"));
+		f = new BufferedReader(new FileReader("file:///home/cloudera/Documents/index_file"));
 		
-		String artID = null;
-		String revID= null;
+		long artID = 0;
+		long revID= 0;
 		Date ts = null;
 		String time = "";
 
@@ -48,10 +48,10 @@ public class IndexMapper extends Mapper<LongWritable, Text, LongWritable, LongWr
 		String l;
 		
 		if ((l = f.readLine())!=null) {
-			stuff = l.split(" ");
+			stuff = l.split("\t");
 			time = stuff[0]; // Timestamp
-			artID = stuff[1]; // article ID
-			revID = stuff[2]; // revision id
+			artID = Long.parseLong(stuff[1]); // article ID
+			revID = Long.parseLong(stuff[2]); // revision id
 			
 
 				// Parse timestamp from data
@@ -64,8 +64,8 @@ public class IndexMapper extends Mapper<LongWritable, Text, LongWritable, LongWr
 
 				// Emit if in range
 				if (ts.after(startDate) && ts.before(endDate))
-					context.write(artID, revID);
-			}
+					context.write(new LongWritable(artID), new LongWritable(revID));
 		}
+		f.close();
 	}
 }
