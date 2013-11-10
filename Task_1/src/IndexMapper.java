@@ -14,46 +14,51 @@ public class IndexMapper extends Mapper<LongWritable, Text, LongWritable, LongWr
 
 	public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
 
-		
-		LongWritable artID = new LongWritable();
-		LongWritable revID = new LongWritable();		
-		Date ts = null;
-		String time = "";
-
-		Date startDate = null;
-		Date endDate = null;
-
-		// Parse Date
-		// 2013-11-03T00:45Z
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-
-		try {
-			startDate = dateFormat.parse(context.getConfiguration().getStrings("Dates")[0]);
-			endDate = dateFormat.parse(context.getConfiguration().getStrings("Dates")[1]);
-		} catch (ParseException e) {
-			String var = context.getConfiguration().getStrings("Dates")[1];
-			System.out.println("Error - Date formatted incorrectly (" + var+ ")");
-		}
-		
-		// Output articleId and revid
-		
-		Scanner indexScan = new Scanner(value.toString());
-		time = indexScan.next(); // Timestamp
-		artID.set(indexScan.nextLong()); // article ID
-		revID.set(indexScan.nextLong()); // revision id
-		
-
-			// Parse timestamp from data
+		if(!context.getConfiguration().getBoolean("finished", false)){
+			LongWritable artID = new LongWritable();
+			LongWritable revID = new LongWritable();		
+			Date ts = null;
+			String time = "";
+	
+			Date startDate = null;
+			Date endDate = null;
+	
+			// Parse Date
+			// 2013-11-03T00:45Z
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+	
 			try {
-				ts = dateFormat.parse(time);
+				startDate = dateFormat.parse(context.getConfiguration().getStrings("Dates")[0]);
+				endDate = dateFormat.parse(context.getConfiguration().getStrings("Dates")[1]);
 			} catch (ParseException e) {
-				System.out.println("Error - Date formatted incorrectly ("+ time + ")");
-				e.printStackTrace();
+				String var = context.getConfiguration().getStrings("Dates")[1];
+				System.out.println("Error - Date formatted incorrectly (" + var+ ")");
 			}
-
-			// Emit if in range
-			if (ts.after(startDate) && ts.before(endDate))
-				context.write(artID, revID);
-
+			
+			// Output articleId and revid
+			
+			Scanner indexScan = new Scanner(value.toString());
+			time = indexScan.next(); // Timestamp
+			artID.set(indexScan.nextLong()); // article ID
+			revID.set(indexScan.nextLong()); // revision id
+			
+	
+				// Parse timestamp from data
+				try {
+					ts = dateFormat.parse(time);
+				} catch (ParseException e) {
+					System.out.println("Error - Date formatted incorrectly ("+ time + ")");
+					e.printStackTrace();
+				}
+			
+				if(ts.after(endDate))
+					context.getConfiguration().setBoolean("finished", true);
+				
+	
+				// Emit if in range
+				if (ts.after(startDate) && !context.getConfiguration().getBoolean("finished", false))
+					context.write(artID, revID);
+	
+		}
 	}
 }
