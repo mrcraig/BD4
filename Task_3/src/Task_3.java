@@ -22,7 +22,7 @@ public class Task_3 extends Configured implements Tool {
 		// Hadoop needs to upload the jar with your code to HDFS, so instruct it where to find it
 		// Supply a full URI as the second argument; e.g., "file:///C:/Users/foo/some/dir/myjar.jar"
 		// if you are on Windows, "file:///home/foo/some/dir/myjar.jar" if you are on *nix, etc.
-		conf.set("mapred.jar", "file:///users/level4/1003648b/BD4/myjar.jar");
+		conf.set("mapred.jar", "file:///users/level4/1002386c/Documents/BD4/myjar.jar");
 
 		// Delete the output directory to allow the job to run
 		// !!! CAUTION !!! Make sure you are not deleting something you need !!! CAUTION !!!
@@ -44,7 +44,7 @@ public class Task_3 extends Configured implements Tool {
 		
 		//Store date in config
 		job.getConfiguration().setStrings("Dates", args[2],args[3]);
-		job.getConfiguration().set("minrevs", args[4]);
+		job.getConfiguration().setInt("minrevs", Integer.parseInt(args[4]));
 
 		// ... and you're done! If you now execute this, with the Hadoop
 		// libraries in your classpath, it will spawn a new job on the BD4

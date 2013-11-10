@@ -48,6 +48,8 @@ public class Task_4B extends Configured implements Tool {
 		
 		//Store date in config
 		job.getConfiguration().setStrings("Dates", args[2], args[3]);
+		
+		job.getConfiguration().setBoolean("finished", false);
 
 		// ... and you're done! If you now execute this, with the Hadoop
 		// libraries in your classpath, it will spawn a new job on the BD4
