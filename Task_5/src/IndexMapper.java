@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Scanner;
+
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
@@ -12,9 +14,6 @@ import org.apache.hadoop.mapreduce.Mapper;
 public class IndexMapper extends Mapper<LongWritable, Text, LongWritable, RevTime>{
 
 	public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException{
-
-		BufferedReader f = null;
-		f = new BufferedReader(new FileReader("blahblahblah arse"));
 
 		LongWritable artID = new LongWritable();
 		long revID = 0;
@@ -38,11 +37,10 @@ public class IndexMapper extends Mapper<LongWritable, Text, LongWritable, RevTim
 		String[] stuff;
 		String l;
 
-		if ((l = f.readLine())!=null) {
-			stuff = l.split(" ");
-			time = stuff[0]; // Timestamp
-			artID.set(Long.parseLong(stuff[1])); // article ID
-			revID = Long.parseLong(stuff[2]); // revision id
+			Scanner indexScan = new Scanner(value.toString());
+			time = indexScan.next(); // Timestamp
+			artID.set(indexScan.nextLong()); // article ID
+			revID = indexScan.nextLong(); // revision id
 
 			//Parse timestamp from data
 			try {
@@ -55,9 +53,6 @@ public class IndexMapper extends Mapper<LongWritable, Text, LongWritable, RevTim
 				//Emit if in range
 				if(inDate.after(ts))
 					context.write(artID,new RevTime(revID,time));//WHY
-			}
-		
-		f.close();
 		}
 
 	}

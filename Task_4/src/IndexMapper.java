@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Scanner;
+
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
@@ -13,9 +15,6 @@ import org.apache.hadoop.mapreduce.Mapper;
 public class IndexMapper extends Mapper<LongWritable, Text, LongWritable, IntWritable>{
 
 	public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException{
-
-		BufferedReader f = null;
-		f = new BufferedReader(new FileReader("blahblahblah arse"));
 
 		LongWritable artID = new LongWritable();
 		LongWritable revID = new LongWritable();
@@ -42,11 +41,10 @@ public class IndexMapper extends Mapper<LongWritable, Text, LongWritable, IntWri
 		String[] stuff;
 		String l;
 
-		if ((l = f.readLine())!=null) {
-			stuff = l.split(" ");
-			time = stuff[0]; // Timestamp
-			artID.set(Long.parseLong(stuff[1])); // article ID
-			revID.set(Long.parseLong(stuff[2])); // revision id
+			Scanner indexScanner = new Scanner(value.toString());
+			time = indexScanner.next();			 // Timestamp
+			artID.set(indexScanner.nextLong()); // article ID
+			revID.set(indexScanner.nextLong()); // revision id
 
 			//Parse timestamp from data
 			try {
@@ -60,10 +58,6 @@ public class IndexMapper extends Mapper<LongWritable, Text, LongWritable, IntWri
 			//TODO sort
 			if(ts.after(startDate) && ts.before(endDate))
 				context.write(artID,new IntWritable(1));
-
-		}
-		f.close();
-
 
 	}
 

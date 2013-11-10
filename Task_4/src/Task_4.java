@@ -19,13 +19,13 @@ public class Task_4 extends Configured implements Tool {
 		Configuration conf = new Configuration();
 
 		// Set conf variables pointing to the BD4 cluster 
-		conf.set("fs.defaultFS", "hdfs://localhost:8020");
-		conf.set("mapred.job.tracker", "localhost:8021");
+		conf.set("fs.defaultFS", "hdfs://bigdata-06.dcs.gla.ac.uk:8020");
+		conf.set("mapred.job.tracker", "bigdata-06.dcs.gla.ac.uk:8021");
 
 		// Hadoop needs to upload the jar with your code to HDFS, so instruct it where to find it
 		// Supply a full URI as the second argument; e.g., "file:///C:/Users/foo/some/dir/myjar.jar"
 		// if you are on Windows, "file:///home/foo/some/dir/myjar.jar" if you are on *nix, etc.
-		conf.set("mapred.jar", "file:///home/cloudera/Documents/myjar.jar");
+		conf.set("mapred.jar", "file:///users/level4/1002386c/Documents/BD4/myjar.jar");
 
 		// Delete the output directory to allow the job to run
 		// !!! CAUTION !!! Make sure you are not deleting something you need !!! CAUTION !!!
@@ -56,7 +56,7 @@ public class Task_4 extends Configured implements Tool {
 		
 		Job job1 = new Job(conf);
 		job1.setJobName("Task 4_2");
-		job1.setJarByClass(Task_4_2.class);
+		job1.setJarByClass(Task_4.class);
 		job1.setMapperClass(MyMapper2.class);
 		job1.setReducerClass(Reduce2.class);
 		//job.setInputFormatClass(NLinesInputFormat.class);
