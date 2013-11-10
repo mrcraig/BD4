@@ -1,15 +1,9 @@
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Scanner;
-import java.util.StringTokenizer;
 import java.io.FileReader;
-
-import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
@@ -20,10 +14,10 @@ public class IndexMapper extends Mapper<LongWritable, Text, LongWritable, LongWr
 
 		
 		BufferedReader f = null;
-		f = new BufferedReader(new FileReader("file:///home/cloudera/Documents/index_file"));
+		f = new BufferedReader(new FileReader("/users/level4/1003648b/BD4"));
 		
-		long artID = 0;
-		long revID= 0;
+		LongWritable artID = new LongWritable();
+		LongWritable revID = new LongWritable();		
 		Date ts = null;
 		String time = "";
 
@@ -50,8 +44,8 @@ public class IndexMapper extends Mapper<LongWritable, Text, LongWritable, LongWr
 		if ((l = f.readLine())!=null) {
 			stuff = l.split("\t");
 			time = stuff[0]; // Timestamp
-			artID = Long.parseLong(stuff[1]); // article ID
-			revID = Long.parseLong(stuff[2]); // revision id
+			artID.set(Long.parseLong(stuff[1])); // article ID
+			revID.set(Long.parseLong(stuff[2])); // revision id
 			
 
 				// Parse timestamp from data
@@ -64,7 +58,7 @@ public class IndexMapper extends Mapper<LongWritable, Text, LongWritable, LongWr
 
 				// Emit if in range
 				if (ts.after(startDate) && ts.before(endDate))
-					context.write(new LongWritable(artID), new LongWritable(revID));
+					context.write(artID, revID);
 		}
 		f.close();
 	}

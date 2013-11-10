@@ -1,15 +1,9 @@
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Arrays;
-
-import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
-import org.apache.hadoop.mapreduce.Reducer.Context;
 
 public class Reduce extends Reducer<LongWritable, Text, LongWritable, Text> {
       String startDate;
@@ -52,22 +46,6 @@ public class Reduce extends Reducer<LongWritable, Text, LongWritable, Text> {
 				}
 				context.write(artID, new Text( revno + " " + results + " "));
 			}
-            
-            //context.write(artID, new Text( revno + " " + results + " "));
-            
-			//stuff craig did
-                        //Storage
-/*                        ArrayList<Long> sortArray = new ArrayList<Long>();
-                        
-                        while(values.iterator().hasNext()){
-                                sortArray.add(values.iterator().next().get());
-                        }
-                        
-                        Collections.sort(sortArray);
-                                
-                        for(long val:sortArray)
-                                context.write(key, new LongWritable(val));
-                        
-                        sortArray.clear();
-     */   }
+        }      
+      
 }
