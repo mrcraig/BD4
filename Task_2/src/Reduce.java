@@ -16,7 +16,7 @@ public class Reduce extends Reducer<LongWritable, Text, LongWritable, Text> {
      }
 	 
         public void reduce(LongWritable key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
-                 
+        	
         	String[] v;
 			
 			LongWritable artID = key;

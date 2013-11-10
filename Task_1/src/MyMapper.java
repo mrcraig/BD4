@@ -1,12 +1,8 @@
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
-import java.util.StringTokenizer;
-
-import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
@@ -19,7 +15,6 @@ public class MyMapper extends Mapper<LongWritable, Text, LongWritable, LongWrita
 		
 		LongWritable artID = new LongWritable();
 		LongWritable revID = new LongWritable();
-		String artTitle;
 		Date ts = null;
 		String time = "";
 		String record = value.toString();
@@ -66,5 +61,7 @@ public class MyMapper extends Mapper<LongWritable, Text, LongWritable, LongWrita
 					context.write(artID,revID);
 			}
 		}
+		
+		lineScan.close();
 	}
 }
