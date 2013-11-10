@@ -3,7 +3,9 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Scanner;
 import java.io.FileReader;
+
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
@@ -12,9 +14,6 @@ public class IndexMapper extends Mapper<LongWritable, Text, LongWritable, LongWr
 
 	public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
 
-		
-		BufferedReader f = null;
-		f = new BufferedReader(new FileReader("/users/level4/1003648b/BD4"));
 		
 		LongWritable artID = new LongWritable();
 		LongWritable revID = new LongWritable();		
@@ -38,28 +37,23 @@ public class IndexMapper extends Mapper<LongWritable, Text, LongWritable, LongWr
 		
 		// Output articleId and revid
 		
-		String[] stuff;
-		String l;
+		Scanner indexScan = new Scanner(value.toString());
+		time = indexScan.next(); // Timestamp
+		artID.set(indexScan.nextLong()); // article ID
+		revID.set(indexScan.nextLong()); // revision id
 		
-		if ((l = f.readLine())!=null) {
-			stuff = l.split("\t");
-			time = stuff[0]; // Timestamp
-			artID.set(Long.parseLong(stuff[1])); // article ID
-			revID.set(Long.parseLong(stuff[2])); // revision id
-			
 
-				// Parse timestamp from data
-				try {
-					ts = dateFormat.parse(time);
-				} catch (ParseException e) {
-					System.out.println("Error - Date formatted incorrectly ("+ time + ")");
-					e.printStackTrace();
-				}
+			// Parse timestamp from data
+			try {
+				ts = dateFormat.parse(time);
+			} catch (ParseException e) {
+				System.out.println("Error - Date formatted incorrectly ("+ time + ")");
+				e.printStackTrace();
+			}
 
-				// Emit if in range
-				if (ts.after(startDate) && ts.before(endDate))
-					context.write(artID, revID);
-		}
-		f.close();
+			// Emit if in range
+			if (ts.after(startDate) && ts.before(endDate))
+				context.write(artID, revID);
+
 	}
 }
