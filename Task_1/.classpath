@@ -21,5 +21,7 @@
 	<classpathentry kind="lib" path="/home/cloudera/Documents/hadoop-libs/protobuf-java-2.4.0a.jar"/>
 	<classpathentry kind="lib" path="/home/cloudera/Documents/hadoop-libs/slf4j-api-1.6.1.jar"/>
 	<classpathentry kind="lib" path="/home/cloudera/Documents/hadoop-libs/zookeeper-3.4.5-cdh4.4.0.jar"/>
+	<classpathentry kind="lib" path="/users/level4/1003648b/BD4/hadoop-libs/hadoop-common-2.0.0-cdh4.4.0.jar"/>
+	<classpathentry kind="lib" path="/users/level4/1003648b/BD4/hadoop-libs/hadoop-core-2.0.0-mr1-cdh4.4.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

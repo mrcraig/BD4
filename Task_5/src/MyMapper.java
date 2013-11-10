@@ -1,12 +1,8 @@
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
-import java.util.StringTokenizer;
-
-import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
@@ -19,7 +15,6 @@ public class MyMapper extends Mapper<LongWritable, Text, LongWritable, RevTime>{
 		
 		long artid = 0;
 		long revid = 0;
-		String artTitle;
 		Date ts = null;
 		Date inDate = null;
 		String time = "";
@@ -54,6 +49,8 @@ public class MyMapper extends Mapper<LongWritable, Text, LongWritable, RevTime>{
 			//Emit if in range
 			if(inDate.after(ts))
 				context.write(new LongWritable(artid),new RevTime(revid,time));
+			
+			lineScan.close();
 		}
 		
 		

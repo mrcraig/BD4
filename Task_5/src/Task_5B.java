@@ -9,7 +9,7 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
-public class Task_5 extends Configured implements Tool {
+public class Task_5B extends Configured implements Tool {
 	@Override
 	public int run(String[] args) throws Exception {
 		Configuration conf = new Configuration();
@@ -32,9 +32,9 @@ public class Task_5 extends Configured implements Tool {
 		// Now do the standard boilerplate stuff, only using the above
 		// prepopulated configuration object...
 		Job job = new Job(conf);
-		job.setJobName("Task 5");
-		job.setJarByClass(Task_5.class);
-		job.setMapperClass(MyMapper.class);
+		job.setJobName("Task 5B");
+		job.setJarByClass(Task_5B.class);
+		job.setMapperClass(IndexMapper.class);
 		job.setReducerClass(Reduce.class);
 		//job.setInputFormatClass(NLinesInputFormat.class);
 		job.setOutputKeyClass(LongWritable.class);
@@ -51,6 +51,6 @@ public class Task_5 extends Configured implements Tool {
 	}
 
 	public static void main(String[] args) throws Exception {
-		System.exit(ToolRunner.run(new Task_5(), args));
+		System.exit(ToolRunner.run(new Task_5B(), args));
 	}
 }
