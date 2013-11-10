@@ -1,14 +1,6 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Scanner;
-import java.util.StringTokenizer;
-
-import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
@@ -24,7 +16,7 @@ public class IndexMapper extends Mapper<LongWritable, Text, LongWritable, Text>{
             		LongWritable artID = new LongWritable();
             		LongWritable revID = new LongWritable();
             		String time = "";
-            		
+            		/*
             		Date ts = null;
             		Date startDate = null;
             		Date endDate = null;
@@ -39,7 +31,7 @@ public class IndexMapper extends Mapper<LongWritable, Text, LongWritable, Text>{
             		} catch (ParseException e) {
             			String var = context.getConfiguration().getStrings("Dates")[1];
             			System.out.println("Error - Date formatted incorrectly (" + var+ ")");
-            		}
+            		}*/
             		
             		// Output articleId and revid
             		
@@ -53,17 +45,18 @@ public class IndexMapper extends Mapper<LongWritable, Text, LongWritable, Text>{
             			revID.set(Long.parseLong(stuff[2])); // revision id
             			
                         //Parse timestamp from data
-                        try {
+                       /* try {
                                 ts = dateFormat.parse(time);
                         } catch (ParseException e) {
                                 System.out.println("Error - Date formatted incorrectly (" + time + ")");
                                 e.printStackTrace();
-                        }
+                        }*/
                         
                         Text val = new Text(time + ";" + revID.toString());
 
                         context.write(artID,val);
                 }
+            		f.close();
                 
                 
         }

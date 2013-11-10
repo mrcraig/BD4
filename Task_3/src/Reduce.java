@@ -1,10 +1,5 @@
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Arrays;
-
-import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
@@ -41,9 +36,9 @@ import org.apache.hadoop.mapreduce.Reducer.Context;
 					}
 				}
 				
-				Long[] revisions;
+				//Long[] revisions;
 				
-				String results = "";
+				//String results = "";
 			/*	if (!revs.isEmpty()){
 					revisions = new Long[revs.size()];
 					revisions = revs.toArray(revisions);

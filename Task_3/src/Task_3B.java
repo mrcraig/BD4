@@ -32,7 +32,7 @@ public class Task_3B extends Configured implements Tool {
 		// Now do the standard boilerplate stuff, only using the above
 		// prepopulated configuration object...
 		Job job = new Job(conf);
-		job.setJobName("Task 3");
+		job.setJobName("Task 3B");
 		job.setJarByClass(Task_3B.class);
 		job.setMapperClass(IndexMapper.class);
 		job.setReducerClass(Reduce.class);
