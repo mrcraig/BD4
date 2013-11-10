@@ -34,42 +34,12 @@ import org.apache.hadoop.mapreduce.Reducer;
 						//revno++;
 					}
 				}
-				
-				//Long[] revisions;
-				
-				//String results = "";
-			/*	if (!revs.isEmpty()){
-					revisions = new Long[revs.size()];
-					revisions = revs.toArray(revisions);
-					Arrays.sort(revisions);
-					results = "";
-					for(Long rev : revs){
-							results += String.valueOf(rev)+" ";
-					}
-					//context.write(artID, new Text( revno + " " + results + " "));
-				}*/
-				
+		
 				int noofrevs = revs.size();
 				
 	            if (noofrevs> minrevs){
 	            	context.write(artID, new Text(Integer.toString(noofrevs)));
 	            }
-	            
-	            
-				//stuff craig did
-	                        //Storage
-	/*                        ArrayList<Long> sortArray = new ArrayList<Long>();
-	                        
-	                        while(values.iterator().hasNext()){
-	                                sortArray.add(values.iterator().next().get());
-	                        }
-	                        
-	                        Collections.sort(sortArray);
-	                                
-	                        for(long val:sortArray)
-	                                context.write(key, new LongWritable(val));
-	                        
-	                        sortArray.clear();
-	     */   
+	           
 	}
 }
