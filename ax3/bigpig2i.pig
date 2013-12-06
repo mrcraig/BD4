@@ -1,4 +1,4 @@
-in = LOAD '/user/bd4-project1/enwiki-20080103-sample' USING PigStorage(' ') AS (field, artID:long, revID:long, title:chararray, timestamp:chararray);
+in = LOAD '/user/1003648b/index' USING PigStorage(' ') AS (timestamp:chararray, artID:long, revID:long);
 
 h = FOREACH in GENERATE artID, revID, title, timestamp;
 
